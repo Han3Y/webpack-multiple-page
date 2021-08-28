@@ -1,0 +1,1067 @@
+@headColor:@primary;                       //主页顶部颜色、弹窗顶部颜色
+@primary:#006ebc;                          //主色调：字体颜色、单选框、复选框颜色、按钮背景颜色 ，输入框hover的border颜色
+@primaryOpacity:rgba(0,104,211,0.7);
+
+@menuParentColor:#ffffff;                      //整个菜单背景颜色
+@menuHoverColor:rgba(0,104,211,0.15);                       //菜单鼠标滑过背景颜色
+@menuSelectColor:rgba(0,104,211,0.15);                      //菜单选中背景颜色
+@menuSelectLeftBorder:@primary;                //菜单选中状态左侧边框颜色
+@menuFontColor:#070606;                        //菜单字体颜色
+@menuSelectFontColor:@primary;                //菜单选中状态字体颜色
+@menuHoverFontColor:#444444;                    //菜单滑过字体颜色
+@menuBorderColor:#f4f4f4;                       //菜单边框颜色
+@menuImgFilter:drop-shadow(#747474 80px 0);        //菜单图片滤镜
+@menuImgTransform:translateX(-80px);         //菜单图片旋转
+@tabSelectColor:@primary;                  //控制台标签选中背景色
+@gridSelectColor:#D9E8F8;                 //表格选中背景色
+@gridHoverColor:#D9E8F8;                  //表格滑过背景
+@scrollColor:rgba(0,0,0,0.15);   //滚动条背景色
+@scrollHoverColor:rgba(0,0,0,0.3);//滚动条滑过背景色
+
+@hover:#CCE4FF;
+
+@bordercolor:#999;                               // 按钮边框  表单项输入框的颜色 
+
+
+/******新增企业版本1.0中有提炼系统字体颜色 ********/
+@mainTextColor:#333;                            //主题字的颜色都是#333
+@tipTextColor:#999;                             //提示性的文字都是#999 例如placeHolder
+@defaultbtnTextColor: #666;                     //默认按钮的，就白色底按钮的文字
+
+/******按钮背景色********/
+@primaryBtnHover:#045CB7 !important;            //primary按钮鼠标滑过背景颜色 以前buttonHover
+@primarybtnColor:@primary;                        //primary按钮背景颜色   企业版本1.0新增
+@primayBtnDisabled:rgba(3,156,244,0.6);        //primary按钮鼠标不可点击背景色  企业版本1.0新增
+
+/**********表单相关颜色**********/
+@inputBorderColor:@bordercolor;                 //输入框的边框颜色   企业版本1.0新增.以前是在common.less中写死的border
+@inputBorderHover:@primary;                     //输入框的边框hover颜色    新增，以前就是直接引用primary
+
+
+@scanBackground:linear-gradient(0deg,rgba(0,104,211,1),rgba(25,167,248,1));//扫描背景
+//滚动条
+*::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+  background-color: @scrollColor;
+  &:hover{
+    background-color: @scrollHoverColor;
+  }
+}
+*::-webkit-scrollbar-track {  /*滚动条里面轨道*/
+  background: #fff;
+}
+
+body{
+  font-family:Arial,'Times New Roman','Microsoft YaHei','SimHei';
+}
+input::-webkit-input-placeholder {
+  color: @tipTextColor;
+  font-size: 14px;
+}
+//登录
+.login-bg{
+  .login-box{
+    .login-content{
+      .login-field{
+        .k-textbox{
+          background: #0574AC;
+          border: 1px solid #3BA8DF;
+          .k-icon{
+            background: #015B97;
+          }
+        }
+      }
+      .login-btn{
+        background: #006EBC;
+      }
+    }
+  }
+}
+#closePdf{
+  &:hover{
+    color: @primary;
+  }
+}
+.index-head{
+  color: #ffffff;
+  //background: ~'url("../../img/header.png") no-repeat top left / 100% 100%' ;
+  background: @headColor;
+  .background-box{
+    background: #002A48;
+  }
+  //border-bottom: 1px solid @headColor;
+  .head-title{
+    //font-family: MFLangQian_Noncommercial-Regular;
+    //text-shadow: 0 2px 4px rgba(0,0,0,0.50);
+  }
+  #head-menu{
+    background-color: transparent;
+    color: #ffffff;
+  }
+  //头部菜单
+  .k-menu{
+    &>.k-item{
+      &.k-state-hover{
+        background-color: rgba(255,255,255,0.4);
+      }
+      .k-link{
+        .k-image{
+          margin-right: 0;
+        }
+        .k-icon{
+          display: none;
+        }
+        &.k-state-active{
+          background-color: rgba(255,255,255,0.4);
+        }
+      }
+    }
+    .k-menu-group{
+      padding: 0;
+      .k-item{
+        &>.k-link{
+          padding: 0 35px;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+        }
+        &.k-state-hover{
+          background-color: @menuHoverColor;
+          .k-link{
+            color:@menuHoverFontColor;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+//选中
+.k-state-selected{
+  color: @primary;
+}
+//表格内按钮
+.k-grid tbody button.k-button{
+  min-width: auto;
+}
+
+//日历
+.k-calendar .k-calendar-header .k-today{
+  color: @primary;
+}
+
+
+.index-content {
+  //左侧菜单
+  .panel-block{
+    border-top: 0;
+    //border-top: 1px solid #13327f;
+  }
+  .back-menu{
+    //background: @menuParentColor;
+    color: @menuFontColor;
+    border-top: 1px solid @menuBorderColor;
+    &:hover{
+      //background: @menuHoverColor;
+      color: @menuHoverFontColor;
+      .iconfont{
+        color: @primary;
+      }
+    }
+  }
+  #index-panel {
+    background: @menuParentColor;
+    .k-group{
+      border-bottom: 1px solid @menuBorderColor;
+    }
+    .k-link {
+      color: @menuFontColor;
+      border-color: @menuBorderColor;
+      background-color: @menuParentColor;
+      &.k-header{
+        //background-color: @menuParentColor;
+      }
+      .k-image {
+        //transform: @menuImgTransform;
+        //filter: @menuImgFilter;
+        transform: none !important;
+        filter: none !important;
+      }
+
+      &.k-state-selected {
+        background-color: @menuSelectColor !important;
+        //color: @menuSelectFontColor;
+        //border-left: solid 4px @menuSelectLeftBorder;
+
+        .k-image {
+          transform: none;
+          filter: none;
+        }
+        .k-icon {
+          color: @menuSelectFontColor;
+        }
+        .iconfont{
+          color: @primary;
+        }
+        .panel-text{
+          color: @menuSelectFontColor;
+        }
+      }
+
+      &.k-state-hover {
+        background-color: @menuHoverColor;
+        .iconfont{
+          color: @primary;
+        }
+        //color: @menuHoverFontColor;
+        .panel-text{
+          color: @menuSelectFontColor;
+        }
+      }
+
+    }
+  }
+  //工作台样式
+  .index-tab-box{
+    #index-tab{
+      background-color: #ffffff;
+      //box-shadow: 0 0 3.9px 0.1px rgba(3, 156, 244, 0.3);
+      background-color: #ffffff;
+      .k-tabstrip-items{
+        border-image-width:0;
+        .k-item{
+          border-right-color: #ddd;
+          .k-link{
+            color: #666;
+            &[data-type='remove']{
+              line-height: 13px;
+            }
+            &:last-child{
+              margin-left: 15px;
+              .k-icon{
+                &:hover{
+                  color: @primary;
+                }
+              }
+            }
+          }
+          &.k-state-active{
+            //border-color:@primary;
+            background-color: #ffffff;
+            border-bottom: 2px solid @primary;
+            z-index: 3;
+            .k-link{
+              color:@primary;
+              &:last-child{
+                .k-icon{
+                  //color: #fff;
+                }
+              }
+            }
+          }
+          &.k-state-hover{
+            border-color:#f4f4f4;
+            background-color: #f4f4f4;
+          }
+        }
+      }
+      .k-button-icon.k-bare{
+        color: #bababa !important;
+        opacity: 1;
+        width: 40px;
+        height: 40px;
+        min-width: auto;
+        top:1px;
+        &:hover{
+          color: #999;
+        }
+        &.k-tabstrip-prev{
+          left:-5px;
+          //border-right: 1px solid #ddd !important;
+        }
+        &.k-tabstrip-next{
+          //right: -2px;
+          //border-left: 1px solid #ddd !important;
+        }
+        .k-icon{
+          display: inline-block;
+          &:before{
+            font-size: 1.8rem;
+          }
+        }
+      }
+    }
+  }
+  .basic-info-box{
+    .k-dropdown{
+      .k-input{
+        color: @primary;
+      }
+    }
+    #breadcrumbBox{
+      .bread-item{
+        &:not(.last-bread){
+          &:hover{
+            color: @primary;
+          }
+        }
+      }
+    }
+  }
+}
+
+//按钮
+.qian-button{
+  //padding: 7px 16px;
+  border-radius: 2px;
+  background-color:transparent;
+  border-color:@bordercolor;
+  font-size:14px;
+  color:@defaultbtnTextColor;
+  box-shadow: none;
+  &:hover{
+    border-color:@primarybtnColor;
+    color:@primarybtnColor;
+    background-color:transparent;
+  }
+  &:focus:active:not(.k-state-disabled):not([disabled]){
+    box-shadow: none;
+  }
+  .k-icon{
+    display: none;
+  }
+}
+.qian-button-primary{
+  color: #fff;
+  border-color:@primarybtnColor;
+  background-color: @primarybtnColor;
+  &:hover{
+    background-color: @primaryBtnHover;
+    border-color:@primaryBtnHover;
+  }
+  &:disabled{
+    color: #fff;
+    border:0;
+    background-color: @primayBtnDisabled;
+  }
+  &:focus:active:not(.k-state-disabled):not([disabled]){
+    box-shadow: none;
+  }
+
+}
+
+
+.k-button{
+  .qian-button;
+  &.k-primary{
+    .qian-button-primary
+  }
+}
+
+//表格
+.k-header.k-grid-toolbar{
+  background-color: #ffffff;
+}
+.k-grid{
+  .k-header{
+    &>.k-link{
+      color:#191919;
+    }
+    &.k-grid-toolbar{
+      background-color: #ffffff;
+    }
+    .k-textbox{
+      &:focus{
+        box-shadow: 0 2px 6px #03a9f4, 0 2px 3px rgb(215, 236, 254)
+      }
+    }
+    .k-button{
+      .qian-button;
+      &.k-primary{
+        .qian-button-primary
+      }
+    }
+  }
+  .k-grid-header{
+    background-color:#fff;
+    th.k-header{
+      background-color: #F4F4F4;
+      color:#191919;
+      // &>.k-link{
+      //   color: #191919;
+      // }
+    }
+  }
+  tr:nth-child(odd){
+    background-color: #fff;
+    &:hover{
+      background-color: #D9E8F8;
+
+    }
+  }
+  tr:nth-child(even){
+    background-color: #f4f4f4;
+    &:hover{
+      background-color: #D9E8F8;
+    }
+  }
+  tr.k-state-selected{
+    background-color: @gridSelectColor;
+    //box-shadow: 0px 0px 3.9px 0.1px
+    //rgba(3, 156, 244, 0.2);
+    color: #666;
+    &:hover{
+      td{
+        background-color: @gridHoverColor;
+      }
+      color: #666;
+    }
+    &>td{
+      border-color: #e5f7ff;
+    }
+  }
+  tr td{
+    .k-button{
+      color:@primary;
+      // border: 1px solid @primary;
+      &.disabled{
+        color: @primaryOpacity;
+      }
+
+      &:hover,&:active:hover{
+        background-color: transparent;
+        border-color:transparent;
+      }
+      &.delBtn,&.k-grid-del{
+      }
+    }
+    .k-textbox{
+      border: solid 1px #ccc;
+      background-color: #fff;
+      color:#333;
+      &:hover{
+        border: solid 1px @primary;
+      }
+      &.k-invalid{
+        border: solid 1px #ff4800;
+      }
+      &:focus{
+        border: solid 1px @primary;
+      }
+    }
+  }
+  .k-grid-content{
+
+  }
+  .k-status{
+    background-color: @primary;
+    color: #ffffff;
+  }
+}
+//分页
+.k-pager-wrap .k-pager-numbers .k-state-selected, .k-pager-wrap .k-pager-numbers .k-state-selected:hover{
+  border-color: @primary;
+  color: @primary;
+}
+.k-pager-wrap .k-pager-numbers .k-link:hover{
+  border-top-color: @primary;//覆盖用
+  border-color: @primary;
+}
+
+//确认框
+.k-dialog.k-confirm{
+  .k-window-titlebar{
+    background-color: @headColor;
+  }
+  .k-dialog-buttongroup.k-dialog-button-layout-stretched{
+    .k-button{
+      .qian-button;
+      &.k-primary{
+        .qian-button-primary
+      }
+    }
+  }
+
+}
+/*******************弹窗 ******************************
+************header背景色，文字颜色 |  footer按钮的颜色****/
+.userDefine-window{
+  .k-window-titlebar{
+    background: @headColor;
+    color: #ffffff;
+  }
+  .k-window-content{
+
+  }
+  .window-footer{
+    .k-button{
+      .qian-button;
+      &.k-primary{
+        .qian-button-primary
+      }
+    }
+  }
+}
+
+
+//下拉列表
+.k-list{
+  .k-item{
+    &.k-state-selected.k-state-focused{
+      background-color: @primary;
+      color:#fff;
+    }
+    &.k-state-hover{
+      background-color: @primary;
+      color:#fff;
+    }
+  }
+}
+//.input-field{
+//  .k-textbox,.k-multiselect,.k-dropdown ,.k-datepicker,.k-datetimepicker{
+//    background-color: #edf3ff;
+//    border: solid 1px #ebebeb;
+//    &:focus{
+//      //border: solid 1px @primary;
+//      .k-select{
+//        color: @primary;
+//      }
+//    }
+//    &:hover{
+//      border: solid 1px #ebebeb;
+//      background-color: #edf3ff;
+//    }
+//    .k-dropdown-wrap,.k-floatwrap,.k-picker-wrap,.k-input{
+//      background-color: #edf3ff;
+//      .k-select{
+//        border: 0;
+//      }
+//    }
+//  }
+//  .k-multiselect{
+//    background-color: #edf3ff;
+//    border: solid 1px #ebebeb;
+//    &.k-state-focused{
+//      //border: solid 1px @primary;
+//    }
+//    &:hover{
+//      border: solid 1px #ebebeb;
+//    }
+//    ul{
+//      &>.k-button{
+//        &:hover{
+//          border: solid 1px @primary;
+//          color: @primary;
+//        }
+//      }
+//    }
+//  }
+//}
+
+/*******************表单 ******************************
+************input，select ,dropdown的背景色  各种鼠标颜色的配置****/
+.input-field{
+  .k-textbox,.k-multiselect,.k-dropdown ,.k-datepicker,.k-datetimepicker,.k-combobox{
+    background-color: transparent;
+    border: solid 1px @inputBorderColor;
+    color:@mainTextColor;
+    &:focus{
+      //border: solid 1px @primary;
+      .k-select{
+        color: @inputBorderHover;
+      }
+    }
+    &:hover{
+      border: solid 1px @inputBorderHover;
+      background-color: transparent;
+    }
+    .k-dropdown-wrap,.k-floatwrap,.k-picker-wrap,.k-input{
+      background-color: transparent;
+      .k-select{
+        border: 0;
+      }
+    }
+  }
+  .k-multiselect{
+    background-color: transparent;
+    border: solid 1px @inputBorderColor;
+    &.k-state-focused{
+      //border: solid 1px @primary;
+    }
+    &:hover{
+      border: solid 1px @inputBorderHover;
+    }
+    ul{
+      &>.k-button{
+        &:hover{
+          border: solid 1px @inputBorderHover;
+          color: @inputBorderHover;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+//基线检查左侧菜单
+#panel{
+  background: #ffffff;
+  .k-link{
+    color: #666;
+    line-height: 40px;
+    &.k-state-selected{
+      color: @menuSelectFontColor;
+      background-color: @menuSelectColor;
+    }
+    &.k-state-hover{
+      background-color: @menuHoverColor;
+      color: @menuHoverFontColor;
+    }
+  }
+}
+
+
+
+
+//日历
+.k-calendar{
+  .k-header{
+    background-color: @primary;
+    .k-link{
+      &.k-state-hover{
+        background-color: transparent !important;
+      }
+    }
+  }
+  td{
+    &.k-state-selected{
+      .k-link{
+        background-color: @primary;
+        border-color: @primary;
+      }
+    }
+  }
+}
+
+
+//单选框
+.k-radio{
+  &:hover{
+    border-color: @primary;
+  }
+  &:checked{
+    border-color: @primary;
+    background-color: @primary;
+    color: @primary;
+  }
+}
+//复选框
+.k-checkbox:checked+.k-checkbox-label:before, .k-checkbox:checked+.k-checkbox-label:hover:before, .k-checkbox:checked:hover+.k-checkbox-label:before{
+  background-color: @primary;
+  border-color: @primary;
+}
+.k-checkbox:checked+.k-checkbox-label:before{
+  background-color: @primary;
+  border-color: @primary;
+}
+.k-checkbox:indeterminate+.k-checkbox-label:before{
+  border-color: @primary;
+}
+.k-checkbox:indeterminate+.k-checkbox-label:after{
+  background-color: @primary;
+  border-color: @primary;
+}
+.k-checkbox-label:hover:before{
+  border-color: @primary !important;
+}
+//复选框--20200617版本修改为用input checkbox
+.k-checkbox:checked{
+  border-color: @primary;
+  background-color: @primary;
+}
+
+.k-treelist .k-alt.k-state-selected, .k-treelist .k-alt.k-state-selected>td, .k-treelist .k-state-selected, .k-treelist .k-state-selected td{
+  background-color: @gridHoverColor;
+  border-color: @gridHoverColor;
+}
+//分页
+/*.k-pager-numbers{
+  .k-state-selected{
+    border-color: @primary transparent;
+    color: @primary;
+  }
+}*/
+
+//文书编辑按钮
+header{
+  .btn{
+    background: @primary;
+  }
+}
+//文书内容页面复选框
+#documentBox{
+  input[type="checkbox"] {
+    &:checked + .checkbox {
+      background: @primary;
+      border-color: @primary;
+    }
+  }
+}
+//横向菜单
+#home-panel{
+  background: #ffffff;
+  .k-link{
+    &.k-state-hover{
+      color: @menuHoverFontColor ;
+      background-color: @menuHoverColor ;
+    }
+    &.k-state-selected{
+      color: @menuSelectFontColor ;
+      background-color: @menuSelectColor ;
+    }
+  }
+}
+#home-menu{
+  background: #ffffff;
+  .k-link{
+    &.k-state-hover{
+      color: @menuHoverFontColor ;
+      background-color: @menuHoverColor ;
+    }
+    &.k-state-selected{
+      //color: @menuSelectFontColor ;
+      //background-color: @menuSelectColor ;
+      border-bottom: 2px solid @primary !important;
+    }
+  }
+}
+//资产、流量、无线、漏挖扫描背景
+.topologyBox{
+  .scan-header{
+    .scan-box{
+      background-image: linear-gradient(0deg,rgba(29,81,200,1),rgba(32,134,220,1));
+    }
+    .scanResult{
+      background:#ffffff;
+      border: 1px solid rgba(235,235,235,1);
+      box-shadow: 0px 2px 6px 0px rgba(16,46,143,0.2);
+    }
+    .info{
+      span{
+        &.status-text{
+          color: @primary;
+        }
+      }
+    }
+  }
+}
+#scanWindow{
+  .scan-box{
+    background:linear-gradient(0deg,rgba(29,81,200,1),rgba(32,134,220,1));
+    box-shadow:0px 2px 6px 0px rgba(16,46,143,0.2);
+  }
+}
+#wirelessWindow{
+  .scan-box{
+    background:linear-gradient(0deg,rgba(29,81,200,1),rgba(32,134,220,1));
+  }
+}
+.video-analysis-box{
+  .scan-head{
+    .scan-box{
+      background:linear-gradient(0deg,rgba(29,81,200,1),rgba(32,134,220,1));
+    }
+  }
+}
+//流量统计页面分析动画
+.loading-content{
+  height: 100%;
+  background: linear-gradient(0deg,rgba(29,81,200,1),rgba(32,134,220,1));
+}
+.vul-scan-box{
+  .vul-scan-head{
+    .scan-box{
+      background-image: @scanBackground;
+    }
+  }
+}
+.deep-analysis-box{
+  .scan-head{
+    .scan-box{
+      background-image: @scanBackground;
+      .progress-bar{
+        background-color: @primary;
+      }
+    }
+  }
+}
+.vul-scan-box{
+  .vul-scan-head{
+    .scan-box{
+      background-image: @scanBackground;
+      .progress-bar{
+        background-color: @primary;
+      }
+    }
+  }
+}
+
+//
+.deep-analysis-box .footer .k-dialog-button.k-primary{
+  color: @primary;
+}
+//漏挖扫描
+.vul-scan-box .vul-scan-body .vul-scan-charts .scan-chart-title li label input[type=radio]:checked + span{
+  background: @primary;
+}
+.vul-scan-box .vul-scan-body .log-box .log-title{
+  background: @primary;
+}
+.wrap{
+  .inner{
+    background-color: @hover;
+  }
+  .inner2 {
+    background-color: @primary;
+    .masker{
+      background-color: @primary;
+    }
+    .spiner,.filler{
+      background-color: @hover;
+    }
+  }
+  .spiner {
+    background-color: @primary;
+  }
+  .filler {
+    background-color: @primary;
+  }
+  .masker {
+    background-color: @hover;
+  }
+}
+.warp-complete{
+  background: @primary;
+}
+.warp-normal{
+  border:2px solid @primary;
+}
+//态势感知任务管理
+.progress-box{
+  border: 1px solid @primary;
+  .progress-bar{
+    background: @primary;
+  }
+}
+//分步菜单
+.index-content .top-menu .step-box .step-item{
+  &.visited{
+    background-color: @menuSelectColor;
+    color: @menuSelectFontColor;
+  }
+}
+//设备详情
+.vul-box{
+  .vul-title{
+    span{
+      border-left: 4px solid @primary;
+    }
+  }
+  .vul-count-box{
+    border: 1px solid rgba(235,235,235,1);
+    box-shadow: 0px 2px 6px 0px rgba(16,46,143,0.2);
+    .vul-total{
+      color: @primary;
+    }
+  }
+  .k-tabstrip-wrapper{
+    #vulTab{
+      .k-tabstrip-items {
+        .k-item{
+          &.k-state-active{
+            background-color: #ffffff;
+            border-bottom: 2px solid @primary;
+            .k-link{
+              color: @primary;
+            }
+          }
+          &.k-state-hover{
+            background-color: @menuHoverColor;
+            .k-link{
+              color: @menuHoverFontColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+//无线分析tab
+.wireless-tab-box{
+  .k-tabstrip-wrapper{
+    #wirelessTab{
+      .k-tabstrip-items {
+        .k-item{
+          &.k-state-active{
+            background-color: #ffffff;
+            border-bottom: 2px solid @primary;
+            .k-link{
+              color: @primary;
+            }
+          }
+          &.k-state-hover{
+            background-color: @menuHoverColor;
+            .k-link{
+              color: @menuHoverFontColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+//基线检查一级目录
+#baseLinePanel{
+  li{
+    &:hover{
+      //background-color: @menuHoverColor;
+      a{
+        color: @primary;
+      }
+    }
+    &.selected{
+      //background-color: @menuSelectColor;
+      a{
+        color: @primary;
+      }
+    }
+  }
+}
+//问卷一级菜单
+.first-menu{
+  .menus{
+    li{
+      &.selected{
+        color: @primary;
+        //background-color: @menuSelectColor;
+      }
+      &:hover{
+        //background-color: @primary;
+        color: @primary;
+      }
+    }
+  }
+}
+
+//弹窗内
+.long-window{
+  .content-bg{
+    .k-grid .k-header .k-button{
+      background: @primary;
+      border: @primary;
+      color: #ffffff;
+    }
+  }
+}
+//进度条窗口
+#progressWindow{
+  .progressbar-box{
+    .progressbar-content{
+      background: @primary;
+    }
+  }
+}
+/**表格中的更多 按钮**/
+.k-grid,.question-list-box{
+  .k-menu{
+    &.k-header{
+      color:@primary;
+    }
+    .k-item{
+      background-color: transparent;
+      >.k-link{
+        color:@primary;
+        &.k-state-border-down{
+          color:@primary;
+        }
+      }
+      &.k-state-hover,&.k-state-active,&.k-state-focused,&.k-state-border-down{
+        color:@primary;
+      }
+    }
+    .k-menu-group{
+      box-shadow:0px 0px 4px 0px rgba(3,156,244,0.3);
+      .k-item{
+        &>.k-link{
+          color: #333333;
+        }
+        &.k-state-hover{
+          background-color: @menuHoverColor;
+          &>.k-link{
+            color:@primary;
+          }
+        }
+      }
+    }
+  }
+}
+//tooltip
+.k-chart-crosshair-tooltip, .k-chart-shared-tooltip, .k-widget.k-tooltip{
+  background-color: @primary;
+  border-color: @primary;
+  font-size:14px;
+  text-align: left;
+  max-width:auto !important;
+}
+.k-callout-n{
+  border-bottom-color: @primary;
+}
+.k-widget.k-tooltip-validation{
+  background: #fdefba;
+}
+//问卷页面取证文件取消按钮
+.camera-box .camera-item .camera-btns .cancel-btn{
+  &:hover{
+    color: @primary;
+    border-color: @primary;
+  }
+}
+
+//自定义tab
+.customer-tab{
+  .tab-item{
+    input[type=radio]:checked + label{
+      border-color: @primary;
+      color: @primary;
+      z-index: 1;
+    }
+    label{
+      &:hover{
+        border-color: @primary;
+        color: @primary;
+        z-index: 1;
+      }
+    }
+  }
+}
+//资产操作详情tab
+.asset-tab-box{
+  .asset-tab-item{
+    input[type=radio]:checked + label{
+      border-bottom-color: @primary;
+      color: @primary;
+    }
+    label{
+      &:hover{
+        border-bottom-color: @primary;
+        color: @primary;
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title data-bind="text:productName"></title>
+    <link rel="shortcut icon" data-bind="attr:{href:headIco}"type="image/x-icon"/>
+    <!--<link href="../static/css/kendo.common.min.css" rel="stylesheet">-->
+    <!--<link href="../static/css/kendo.use.min.css" rel="stylesheet">-->
+    <!--<link href="../css/common.css" rel="stylesheet">-->
+    <!--<link href="../css/login.css" rel="stylesheet">-->
+    <!--<link href="/nologin/getImageConfig?key=colorConfig" rel="stylesheet">-->
+    <script type="text/javascript">
+        if(self != top){
+            top.location.href = "/login";
+        }
+    </script>
+    <style>
+        #tipWindow{
+            position: relative;
+            padding: 0;
+            height: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .k-window-titlebar{
+            /* display: none; */
+        }
+        .window-footer{
+            display: none;
+        }
+        #tipWindow li{
+            line-height: 23px;
+            font-size: 0.75rem;
+        }
+        #tipWindow h2{
+            margin: 5px 0;
+        }
+        .k-window.userDefine-window{
+            top: auto !important;
+            bottom: 40px;
+            padding-top: 0 !important;
+        }
+        #tipConfirm{
+            position: absolute;
+            right: 15px;
+            bottom: 4px;
+            padding: 0;
+            width: 70px;
+            height: 25px;
+            line-height: 25px;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+<span id="notification"></span>
+<div class="login-bg">
+    <div class="login-box">
+        <div class="login-content">
+            <div class="login-title">
+                <img data-bind="attr:{src:loginLogo}" class="login-logo">
+                <span data-bind="text:productName"></span>
+            </div>
+            <form method="post" action="#" onsubmit="return false;" id="loginForm">
+                <div class="login-field login-input">
+                    <input autocomplete="off" class="user-icon" class="reboot" type="text" name="username" id="username" data-bind="value:userName" required placeholder="登录名"/>
+                    <span class="login-err" data-for="username" data-bind="text:errMsg"></span>
+                </div>
+                <div class="login-field psd-field">
+                    <input class="lock-icon" autocomplete="new-password" class="close-system" type="password" id="pwdInput" name="text" data-bind="value:passWord" required placeholder="密码"
+                    />
+                    <div class="icon-box">
+                        <input type="checkbox" id="pwdView">
+                        <label for="pwdView"></label>
+                    </div>
+                </div>
+                <button type="submit" class="k-button login-btn" id="login-sub">登录</button>
+            </form>
+        </div>
+    </div>
+    <div class="operat-btn">
+        <span class="reboot"></span>
+        <span class="close-system"></span>
+    </div>
+    <div class="copy-box">
+        <span data-bind="text:copyRight"></span>&nbsp;
+        <span data-bind="text:company"></span>&nbsp;
+        保留所有权利
+    </div>
+</div>
+<div class="text-window" id="tipWindow" style="display: none">
+    <h2>执行检查前请确认：</h2>
+    <li>该检查工具在控制器以上进行检测，可能造成不可预估的风险。</li>
+    <li>请检查单位书面同意使用工具检查。</li>
+    <li>请确认检查对象工作正常。</li>
+    <li>在检查工具执行前，请确认工具接入必须在控制器以上进行接入，不允许接入现场设备层。</li>
+    <div class="tip-check-box" style="display: none">
+        <input class="k-checkbox" id="tipCheck" type="checkbox">
+        <label  class="k-checkbox-label" for="tipCheck" >下次执行不再提醒</label>
+    </div>
+    <button class="k-button k-primary" id="tipConfirm">确认</button>
+</div>
+<!--<script src="../static/js/jquery.min.js"></script>-->
+<!--<script src="../static/js/kendo.all.min.js"></script>-->
+<!--<script src="../static/js/kendo.messages.zh-CN.min.js"></script>-->
+<!--<script src="../js/common.js"></script>-->
+<!--<script src="../js/config.js"></script>-->
+<!--<script src="../lib/js/md5-min.js"></script>-->
+<!--<script src="../js/login.js"></script>-->
+</body>
+</html>

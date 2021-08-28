@@ -2,15 +2,209 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title data-bind="text:productName"></title>
+    <link rel="shortcut icon" data-bind="attr:{href:headIco}"type="image/x-icon"/>
 </head>
-<body>
-    <div class="index-box">index</div>
-    <a href="test.html">跳转test</a>
-    <a href="../pdf/web/viewer.html?file=1490687173365.pdf">pdf test</a>
-    <img src="${ require('../img/logo-n.png') }">
-    <button id="dataTest">模拟数据测试</button>
-    <script src="../lib/js/lib.js"></script>
-    <!--< %= require('html-loader!../tep/tep.html') % >-->
+<body ondragstart="return false">
+    <div class="page-loading">
+        <div id="pageLoader"></div>
+        <!--<img src="../img/loading_2x.gif">-->
+    </div>
+    <span id="notification"></span>
+    <div id="confirm"></div>
+    <div id="versionWindow">
+        <img class="version-logo" data-bind="attr:{src:versionLogo}">
+        <div class="version-product"><span data-bind="text:productName"></span>&nbsp;<span data-bind="text:version"></span></div>
+        <div class="version-info-box">
+
+        </div>
+        <div class="version-footer">
+            <span data-bind="text:copyRight"></span>&nbsp;
+            <span data-bind="text:company"></span>&nbsp;
+            保留所有权利
+        </div>
+        <!--<button id="licenseBtn">授权管理</button>-->
+    </div>
+    <div id="uploadWindow">
+        <div class="files-box">
+            <div data-bind="visible:showNormal">
+                <input type="file" id="uploadFile" name="file">
+            </div>
+            <div data-bind="visible:showHigh" class="files-box-high">
+                <button class="k-button" id="uploadHighBtn">选择文件</button>
+                <div class="files-item-box">
+                </div>
+            </div>
+        </div>
+        <div class="upload-text">注意：系统升级成功后将会自动重启，并返回登录界面。</div>
+    </div>
+    <div id="restoreWindow" class=" restoreWindow" style="display: none;">
+        <div class="content-bg no-title">
+            <div class="restore-text">此操作将恢复出厂设置，清空所有操作数据并重启设备，如需继续请填写登录密码进行操作！</div>
+             <div name="restoreForm" id="restoreForm">
+            <div class="input-field">
+                <label class="required">登录密码</label>
+                <input type="password" name="restorePassword" id="loginPwd" class="k-textbox" required>
+                <span data-for="restorePassword" class="k-invalid-msg"></span>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div id="eraserWindow" class="small-window restoreWindow">
+        <div class="content-bg no-title">
+            <div class="restore-text">此操作将进行痕迹清除，擦除所有操作数据并重启设备，如需继续请填写登录密码进行操作！</div>
+            <div name="eraserForm" id="eraserForm">
+                <div class="input-field">
+                    <label class="required">登录密码</label>
+                    <input type="password" name="eraserPassword" id="loginPwd2" class="k-textbox" required>
+                    <span data-for="eraserPassword" class="k-invalid-msg"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="index-head">
+        <div class="background-box">
+            <img class="head-logo" data-bind="attr:{src:headLogo}">
+            <sapn class="head-title" data-bind="text:productName"></sapn>
+            <div class="battery-box" style="display: none" data-bind="visible:showBattery,attr:{title:batteryInfo}">
+                <span class="battery-progress" data-bind="style:{width:progress}"></span>
+            </div>
+            <ul id="head-menu">
+            </ul>
+            <div class="sys-info">
+                <span >你好,</span>
+                <span data-bind="text:userName" style="margin-right: 24px;"></span>
+                <span class="time-info" data-bind="text:date"></span>
+            </div>
+        </div>
+    </div>
+    <div class="operator-block">
+        <div class="menu-item-box">
+
+        </div>
+    </div>
+    <div class="index-content">
+        <div class="panel-block">
+            <div class="back-menu">
+                <span class="iconfont">&#xe60e;</span>
+            </div>
+            <div class="panel-box">
+                <ul id="index-panel">
+
+                </ul>
+            </div>
+            <!--<button class="k-button" id="panelBtn">测试</button>-->
+        </div>
+        <div class="page-box">
+            <div class="basic-info-box">
+                <div id="breadcrumbBox"></div>
+                <div class="head-project-info" data-bind="visible:showProject">
+                    <span class="project-name">【<span id="planName" data-bind="text:projectName"></span>】</span>
+                    <span class="other-text" data-bind="text:otherInfo"></span>
+                    <span data-bind="visible:showRegion"><span class="basic-text"></span> : <input id="regionSelect"></span>
+                </div>
+            </div>
+            <div class="index-tab-box" data-bind="visible:showTab">
+                <iframe id="iframe"></iframe>
+                <!--<div id="index-tab">-->
+                <!--</div>-->
+            </div>
+            <div class="empty-box" data-bind="visible:showEmpty">
+                <!--<span style="display:  inline-block;height: 100%;vertical-align:middle;"></span>-->
+                <!--<img id="emptyImg" style="vertical-align:middle;" data-bind="attr:{src:versionLogo}">-->
+                <div class="welcome-text">
+                    <img src="../img/empty.png">
+                    <br>
+                    欢迎你,<span data-bind="text:userName"></span>!
+                    <span data-bind="visible:showEmpty_action">点击进入<text id="gotoAction" data-bind="text:actionName"></text></span>
+                    <span data-bind="visible:showEmpty_text">请到相关页面进行功能操作</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="psdForm" style="display: none">
+        <div class="content-bg">
+            <div class="input-field">
+                <label>用户名</label>
+                <span type="text"  data-bind="text:userName" style="vertical-align: middle;line-height: 32px;"></span>
+            </div>
+            <div class="input-field">
+                <label class="required">旧密码</label>
+                <input type="password" required
+                       class="k-textbox"
+                       placeholder="请输入旧密码"
+                       name="oldPassword"
+                       id="oldPassword">
+                <span data-for="oldPassword" class="k-invalid-msg"></span>
+            </div>
+            <div class="input-field">
+                <label class="required">新密码</label>
+                <input type="password" required
+                       class="k-textbox"
+                       password
+                       maxlength="16"
+                       placeholder="请输入新密码"
+                       name="newPassword"
+                       id="newPassword">
+                <span data-for="newPassword" class="k-invalid-msg"></span>
+            </div>
+            <div class="input-field">
+                <label class="required">确认密码</label>
+                <input type="password" required equalTo="newPassword"
+                       class="k-textbox"
+                       maxlength="16"
+                       placeholder="请输入确认密码"
+                       name="rePassword">
+                <span data-for="rePassword" class="k-invalid-msg"></span>
+            </div>
+        </div>
+    </form>
+    <div class="pointer-menu">
+        <div id="closeAll">关闭全部</div>
+        <div id="closeOther">关闭其他</div>
+        <div id="refreshTab">刷新当前页</div>
+    </div>
+    <span class="iconfont" id="closePdf">&#xe611;</span>
+
+    <div id="addOreditWindow"  style="display: none">
+        <div id="projectForm">
+            <div class="content-bg">
+                <div class="input-field">
+                    <label class="required">任务名称</label>
+                    <input type="text"  required maxlength="50"
+                           name="operate_org_name"
+                           class="k-textbox"
+                           data-bind="value:name"
+                           placeholder="请输入任务名称"
+                           namecheck>
+                    <span data-for="" class="k-invalid-msg"></span>
+                </div>
+                <div class="input-field regions-field">
+                    <label class="required"> 区域</label>
+                    <div class="regionsArea">
+                        <div class="regionsArealists"></div>
+                        <div>
+                            <button id="addRegion"
+                                    class="k-textbox k-button k-button-icontext"><span class="k-icon k-i-plus"></span>新增</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="regionLists" type="text/x-kendo-template">
+        # for (var i = 0; i < data.length; i++) { #
+        <div>
+            <input type="text"
+                   maxlength="15"
+                   required
+                   namecheck
+                   name="region_#=data[i].id#" class="k-textbox regionInput" value="#:data[i].name#" placeholder="同一任务下区域名具有唯一性" autocomplete='off'>
+            <img style="#if (data.length===1){#display:none;#}#}" src="#= data[i].icon #" id="#:data[i].id#" class="regionDelete">
+        </div>
+        # } #
+    </script>
 </body>
 </html>
