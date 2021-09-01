@@ -13,7 +13,7 @@ var commonModel = {
         //var url = 'abc?t=123456789'.replace(/t=(\d{8,16})/g, "");
         var paramsObj = {};
         if (url.indexOf("?") > 0) {
-            var params = url.split("?")[1].split("&");
+            var params = decodeURIComponent(url).split("?")[1].split("&");
             for (var i = 0; i < params.length; i++) {
                 paramsObj[params[i].split("=")[0]] = params[i].split("=")[1];
             }
@@ -67,76 +67,23 @@ var commonModel = {
         }
 
     },
-    getUnitTree: function (callBack,isQuery,id) {
-        $.ajax({
-            type: 'GET',
-            url: GENERAL_CONFIG.BASE_URL + GENERAL_CONFIG.API_VERSION + '/basicInfo/tree',
-            cache: false,
-            data:{
-                isQuery:isQuery,
-                id:id||''
+    alert: function (o, callBack, errorCallBack) {
+        var id = ('alert_' + Math.random()).replace('.', '');
+        $("body").append($(`<div id='${id}'>${o.content}</div>`));
+        $(`#${id}`).kendoAlert({
+            messages: {
+                okText: o.okText || "确认",
             },
-            success: function (res) {
-                if (res.result === true) {
-                    if(!isQuery && !res.data.length){
-                        let text = commonModel.getBasicInfo().text;
-                        TOASTR.show(`请添加${text}`,'error');
-                    }else{
-                        if (callBack) {
-                            callBack(res.data);
-                        }
-                    }
-
+            title: o.title || '提示',
+            close: function (){
+                if(callBack){
+                    callBack();
                 }
-            }
-
-        });
-    },
-    getSearchTreeDefault:function (callBack,refId) {
-        $.ajax({
-            type: 'GET',
-            url: GENERAL_CONFIG.BASE_URL + GENERAL_CONFIG.API_VERSION + '/basicInfo/tree/listTreeDefault',
-            data:{
-                refId:refId
             },
-            cache: false,
-            success: function (res) {
-                if (res.result === true) {
-                    if(refId && !res.data){
-                        let text = commonModel.getBasicInfo().text;
-                        TOASTR.show(`请添加${text}`,'error');
-                    }
-                    if (callBack) {
-                        callBack(res.data.id);
-                    }
-                }
-            }
-
+            width: 480,
+            height: 340
         });
-    },
-    getFormTreeDefault:function (callBack,refId) {
-        $.ajax({
-            type: 'GET',
-            url: GENERAL_CONFIG.BASE_URL + GENERAL_CONFIG.API_VERSION + '/basicInfo/tree/formTreeDefault',
-            data:{
-                refId:refId
-            },
-            async:false,
-            cache: false,
-            success: function (res) {
-                if (res.result === true) {
-                    if (callBack) {
-                        if(!res.data){
-                            let text = commonModel.getBasicInfo().text;
-                            TOASTR.show(`请添加${text}`,'error');
-                        }else{
-                            callBack(res.data?res.data.id:'');
-                        }
-
-                    }
-                }
-            }
-        });
+        commonModel.modalOverlay('show', 'confirm');
     },
     prettySize: function (bytes) {
         var thresh = 1024;
@@ -150,90 +97,6 @@ var commonModel = {
             ++u;
         } while (Math.abs(bytes) >= thresh && u < units.length - 1);
         return [bytes.toFixed(2), units[u]];
-    },
-    getDeviceIcon: function (deviceType, deviceVendor, deviceName) {
-        var deviceNameMap = {
-        "IAD智能保护平台KEV-C200": 'baohu',
-        "IAD智能保护平台KEV-C400": 'baohu',
-        "威胁评估平台KER-2000": 'weiping',
-        "威胁评估数据采集隔离平台KERD-C2400": 'weiping',
-        "安全监管平台KEP-2000": 'jianguan',
-        "安全监管数控审计保护平台KEP-C-U1000": 'jianguan',
-        "数据采集隔离平台KED-C200": 'shucai',
-        "数据采集隔离平台KED-C400": 'shucai',
-        "数控审计保护平台KEC-U1000": 'shukong',
-        "漏洞挖掘检测平台KET-2000": 'louwa',
-        "漏洞挖掘检测平台KET-3000": 'louwa'
-    };
-        var AcornDeviceMap = {
-        "IDS": true,
-        "IPS": true,
-        "SWITCH": true
-    };
-        var deviceTypeMap = {
-        'CLOUD': 'CLOUD',
-        'COLLAPS': 'COLLAPS',
-        'DB': 'DB',
-        'DCS': 'DCS',
-        'EAE': 'EAE',
-        'EWS': 'EWS',
-        'FIREWALL': 'FIREWALL',
-        'FOS': 'FOS',
-        'GAP': 'GAP',
-        'GATEWAY': 'GATEWAY',
-        'IDS': 'IDS',
-        'IPS': 'IPS',
-        'OPC': 'OPC',
-        'OWS': 'OWS',
-        'PLC': 'PLC',
-        'PRINTER': 'PRINTER',
-        'ROUTER': 'ROUTER',
-        'SCADA': 'SCADA',
-        'SWITCH': 'SWITCH',
-        'UNKNOWN': 'UNKNOWN',
-        'VIRUS': 'VIRUS',
-        'WEB': 'WEB',
-        'DVR': 'DVR',
-        'DCM': 'DCM',
-        'DTU': 'DTU',
-        'IP CAMERA': 'IP CAMERA',
-        'NVR': 'NVR',
-        'PRPSP': 'PRPSP',
-        'RTU': 'RTU',
-        'VFD': 'VFD',
-        'VMS': 'VMS',
-        'CLOUD DESKTOP': 'CLOUD DESKTOP'
-
-    };
-        var type = typeof (deviceType) === 'string' ? deviceType.toUpperCase() : 'UNKNOWN';type = deviceTypeMap.hasOwnProperty(type) ? type : 'UNKNOWN';
-        var vendor = (deviceVendor || 'UNKNOWN').toUpperCase() === 'ACORN' ? '_ACORN' : '';
-        var name = deviceNameMap.hasOwnProperty(deviceName) ? '_' + deviceNameMap[deviceName] : '';
-        var vendorName = '';
-        if (type == 'IPS') {
-            vendorName = (name !== '' ? vendor + name : '');
-        } else {
-            vendorName = vendor + name;
-        }
-        if ((deviceVendor || 'UNKNOWN').toUpperCase() === 'ACORN' && !AcornDeviceMap[type]) {
-            vendorName = '';
-        }
-        var iconPath = '../img/devices/' + type + vendorName + '.svg';
-        return iconPath;
-    },
-    getDeviceCircleColor : function (final_score) {
-        var risk_color = "#b7b7b7";
-        if (typeof final_score != "undefined") {
-            if (final_score < 31 && final_score > 0) {
-                risk_color = "#2294e1";
-            } else if (final_score > 30 && final_score < 71) {
-                risk_color = "#f7cb02";
-            } else if (final_score > 70 && final_score < 101) {
-                risk_color = "#e85353";
-            } else if (final_score === 0) {
-                risk_color = "#7eaf39";
-            }
-        }
-        return risk_color;
     },
     clocker:{       //时分秒的计时器
         clock:'',
@@ -607,64 +470,8 @@ var commonModel = {
             }
         }
     },
-    //判断是否重启完毕
-    checkRebootStatus: function () {
-        kendo.ui.progress($("body"), true);
-        var interval = setInterval(function () {
-            $.ajax({
-                type: 'GET',
-                url: GENERAL_CONFIG.BASE_URL + GENERAL_CONFIG.API_VERSION + '/gq110001/103',
-                cache: false,
-                success: function (res) {
-                    clearInterval(interval);
-                    window.location.href = "/login";
-                }
-            });
-        },10000);
-    },
-    //判断是否有电池
-    checkBattery:function (cb) {
-        $.ajax({
-            type:'GET',
-            url: GENERAL_CONFIG.BASE_URL + GENERAL_CONFIG.API_VERSION + '/platform/batteryExist',
-            async:false,
-            success:function (res) {
-                if(res.result === true){
-                    var data = res.data;
-                    if(cb){
-                        cb(data);
-                    }
-                }
-            }
-        });
-    },
-    //获取电池信息
-    getBatteryInfo:function (cb) {
-        $.ajax({
-            type:'GET',
-            url: GENERAL_CONFIG.BASE_URL + GENERAL_CONFIG.API_VERSION + '/platform/batteryInfo',
-            async:false,
-            success:function (res) {
-                if(res.result === true){
-                    var data = res.data;
-                    if(cb){
-                        cb(data);
-                    }
-                }
-            }
-        });
-    },
-    batterySocket:function () {
-        var battery = io(GENERAL_CONFIG.BASE_URL + GENERAL_CONFIG.API_VERSION + '/platform/batteryInfo');
-        battery.on('connect',()=>{
-            console.log('获取电池连接成功');
-        });
-        battery.on('disconnect',()=>{
-            console.log('获取电池连接断开');
-            battery.open();
-        });
-        return battery;
-    },
+
+
     sleep:function (time) {
         return new Promise((resolve,reject)=>{
             setTimeout(()=>{
@@ -672,58 +479,7 @@ var commonModel = {
             },time)
         });
     },
-    //打印文书
-    printDocument:function (params,callback) {
-        $.ajax({
-            type:'POST',
-            url:GENERAL_CONFIG.BASE_URL + GENERAL_CONFIG.API_VERSION + '/printer',
-            data:JSON.stringify(params),
-            dataType:'json',
-            headers:{
-                "Content-Type":"application/json"
-            },
-            success:function (res) {
-                if(res.result === true){
-                    TOASTR.show('开始打印，请确保纸张摆放正确。','success');
-                    if(callback){
-                        callback();
-                    }
-                }
-            }
-        });
-    },
-    //获取基本信息类型
-    getBasicInfo:function () {
-        let basic = {};
-        $.ajax({
-            type:'GET',
-            url: GENERAL_CONFIG.BASE_URL + GENERAL_CONFIG.API_VERSION + '/selectTip',
-            async:false,
-            success:function (res) {
-                if(res.result === true){
-                    var data = res.data;
-                    basic.text = data.text;
-                    basic.type = data.type;
-                    basic.msg = data.msg;
-                }
-            }
-        });
-        if(!basic.text){
-            basic.text = '区域';
-        }
-        if(!basic.type){
-            basic.type = 'Region';
-        }
-        if(!basic.msg){
-            basic.msg = '请选择区域';
-        }
-        let len = $('.basic-text').length;
-        for(let i = 0;i < len; i++){
-            $('.basic-text').eq(i).text(basic.text);
-        }
-        return basic;
-    },
-    //禁止浏览器记录文本框内容(直接写在全局的config.js中会失效)
+    //禁止浏览器记录文本框内容
     disableTextHistory:function() {
         try{
             var input1 = document.querySelectorAll('input[type=text]');
