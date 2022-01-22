@@ -17,14 +17,8 @@ module.exports = merge(webpackBase,{
     // 配置 webpack-dev-server
     devServer:{
         // 项目根目录
-        contentBase:path.resolve(__dirname,"../dist"),
-        // 错误、警告展示设置
-        overlay:{
-            errors:true,
-            warnings:true
-        },
-        open:true,
-        openPage:"html/login.html",
+        static:path.resolve(__dirname,"../dist"),
+        open: ['html/login.html'],
         host:webConfig.host,
         port:webConfig.port,
         // 不要显示启动服务器日志信息

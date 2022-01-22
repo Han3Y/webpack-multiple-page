@@ -124,14 +124,15 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            url: (url, resourcePath) => {
-                                // resourcePath - path to css file
-                                // Don't handle `img.png` urls
-                                if (url.includes('getImageConfig')) {
-                                    return false;
+                            url: {
+                                filter: (url, resourcePath) => {
+                                    // resourcePath - path to css file
+                                    // Don't handle `img.png` urls
+                                    if (url.includes('getImageConfig')) {
+                                        return false;
+                                    }
+                                    return true;
                                 }
-
-                                return true;
                             },
                         }
                     },
@@ -179,14 +180,15 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            url: (url, resourcePath) => {
-                                // resourcePath - path to css file
-                                // Don't handle `img.png` urls
-                                if (url.includes('getImageConfig')) {
-                                    return false;
+                            url: {
+                                filter: (url, resourcePath) => {
+                                    // resourcePath - path to css file
+                                    // Don't handle `img.png` urls
+                                    if (url.includes('getImageConfig')) {
+                                        return false;
+                                    }
+                                    return true;
                                 }
-
-                                return true;
                             },
                         }
                     },
@@ -208,28 +210,44 @@ module.exports = {
                     'less-loader'
                 ]
             },
+            // {   // 使用webpack5 自带的asset 模块代替此loader
+            //     // 问题：默认处理不了html中img图片
+            //     // 处理图片资源
+            //     test: /\.(jpg|png|gif|svg)$/,
+            //     //  不使用webpack5 的 asset 模块的处理
+            //     type: 'javascript/auto',
+            //     use: [
+            //         {
+            //             // 使用一个loader
+            //             // 下载 url-loader file-loader
+            //             loader: 'url-loader',
+            //             options: {
+            //                 // 图片大小小于8kb，就会被base64处理
+            //                 // 优点: 减少请求数量（减轻服务器压力）
+            //                 // 缺点：图片体积会更大（文件请求速度更慢）
+            //                 limit: 8 * 1024,
+            //                 // 问题：因为url-loader默认使用es6模块化解析，而html-loader引入图片是commonjs
+            //                 // 解析时会出问题：[object Module]
+            //                 // 解决：关闭url-loader的es6模块化，使用commonjs解析
+            //                 esModule: false,
+            //                 // 给图片进行重命名
+            //                 // [hash:10]取图片的hash的前10位
+            //                 // [ext]取文件原来扩展名
+            //                 name: '[name][contenthash:10].[ext]',
+            //                 // 图片的生成路径
+            //                 outputPath:config.imgOutputPath,
+            //                 // publicPath:'../img',
+            //             }
+            //         }
+            //     ]
+            // },
             {
-                // 问题：默认处理不了html中img图片
+                // 使用webpack5 自带的asset处理方式，替代上面的url-loader
                 // 处理图片资源
                 test: /\.(jpg|png|gif|svg)$/,
-                // 使用一个loader
-                // 下载 url-loader file-loader
-                loader: 'url-loader',
-                options: {
-                    // 图片大小小于8kb，就会被base64处理
-                    // 优点: 减少请求数量（减轻服务器压力）
-                    // 缺点：图片体积会更大（文件请求速度更慢）
-                    limit: 8 * 1024,
-                    // 问题：因为url-loader默认使用es6模块化解析，而html-loader引入图片是commonjs
-                    // 解析时会出问题：[object Module]
-                    // 解决：关闭url-loader的es6模块化，使用commonjs解析
-                    esModule: false,
-                    // 给图片进行重命名
-                    // [hash:10]取图片的hash的前10位
-                    // [ext]取文件原来扩展名
-                    name: '[name][hash:10].[ext]',
-                    // 图片的生成路径
-                    outputPath:config.imgOutputPath
+                type: 'asset/resource',
+                generator: {
+                    filename: 'img/[hash][ext][query]'
                 }
             },
             {
@@ -250,15 +268,13 @@ module.exports = {
                     }
                 }
             },
-            // 打包其他资源(除了html/js/css资源以外的资源)
             {
-                // 排除css/js/html资源
+                // 使用webpack5 自带的asset处理方式，替代 file-loader
+                // 打包其他资源(除了html/js/css资源以外的资源)
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                loader: 'file-loader',
-                options: {
-                    outputPath:'./css',
-                    publicPath:'../css',
-                    name: '[hash:10].[ext]'
+                type: 'asset/resource',
+                generator: {
+                    filename: 'css/[contenthash:10][ext][query]'
                 }
             },
             // {
@@ -358,15 +374,5 @@ module.exports = {
             ],
             append: false
         }),
-        // new HtmlWebpackTagsPlugin({//从数据库获取颜色文件
-        //     tags: [{path:'/nologin/getImageConfig?key=colorConfig',type:'css'}],
-        //     append: true,
-        //     publicPath: ''
-        // }),
-        // new webpack.DefinePlugin({
-        //     isQtech: isQtech,
-        //     isMiit: isMiit
-        // })
-
     ],
 };
